@@ -14,7 +14,6 @@ using std::size_t;
 constexpr const char* UCLEAR = "\033[2J"; 
 constexpr const char* UHOME = "\033[H";
 
-
 #ifndef _WIN32
 constexpr int8_t kARROW = 27;
 constexpr int8_t kARROW_UP = 65;
@@ -22,11 +21,11 @@ constexpr int8_t kARROW_DOWN = 66;
 constexpr int8_t kARROW_RIGHT = 67;
 constexpr int8_t kARROW_LEFT = 68;
 #else
-constexpr int8_5 ARROW = -32;
-constexpr int8_t ARROW_UP = 72;
-constexpr int8_t ARROW_DOWN = 80;
-constexpr int8_t ARROW_RIGHT = 77;
-constexpr int8_t ARROW_LEFT = 75;
+constexpr int8_t kARROW = -32;
+constexpr int8_t kARROW_UP = 72;
+constexpr int8_t kARROW_DOWN = 80;
+constexpr int8_t kARROW_RIGHT = 77;
+constexpr int8_t kARROW_LEFT = 75;
 #endif
 
 struct Position{
@@ -37,11 +36,11 @@ struct Position{
 
 enum class Direction{UP, DOWN, LEFT, RIGHT};
 
-struct Move{
+struct Action{
    Direction direction;
    int offset;
 
-   Move(Direction dir, int offset = 0): offset(offset), direction(dir) {}
+   Action(Direction dir, int offset = 0): offset(offset), direction(dir) {}
 };
 
 inline int random(int min, int max){

@@ -9,26 +9,30 @@ struct SnakeChunk{
 };
 
 class Snake{
-   public:
+public:
       Snake(){
-         m_Snake.reserve(8);
-         m_Snake.push_back(SnakeChunk());
+         mChunks.reserve(8); // Fixes a Weird Glitch: Vector allocation error when push_back on length 4
+         mChunks.push_back(SnakeChunk());
       };
 
-      SnakeChunk& Head() { return m_Snake[0]; };
-      const size_t Length() const { return m_Snake.size(); }
-      
-      void Apply(std::deque<Move> &moves) {
-         for(auto& move: moves){
-            m_Snake[move.offset].direction = move.direction;
-            move.offset++;
+      SnakeChunk& head() { return mChunks[0]; };
+      const size_t length() const { return mChunks.size(); }
+      const std::vector<SnakeChunk>& chunks() const { return mChunks; };
+
+public:
+      void ApplyActions(std::deque<Action> &actions) {
+          if (actions.empty()) return;
+
+         for(auto& action: actions){
+            mChunks[action.offset].direction = action.direction;
+            action.offset++;
          }
 
-         if(moves.front().offset >= m_Snake.size()) moves.pop_front();
+         if(actions.front().offset >= mChunks.size()) actions.pop_front();
       };
       
-      void Move(){
-         for(auto &chunk: m_Snake){
+      void Advance(){
+         for(auto &chunk: mChunks){
             switch(chunk.direction){
                case Direction::RIGHT: chunk.position.x++; break;
                case Direction::UP: chunk.position.y--; break;
@@ -39,8 +43,8 @@ class Snake{
          }
       };
 
-      void Extend(){
-         auto chunk = m_Snake.back();
+      void Grow(){
+         auto chunk = mChunks.back();
          switch(chunk.direction){
             case Direction::UP: chunk.position.y++; break;
             case Direction::DOWN: chunk.position.y--; break;
@@ -49,11 +53,10 @@ class Snake{
             default: break;
          }
 
-         m_Snake.push_back(chunk);
+         mChunks.push_back(chunk);
       }
 
-      const std::vector<SnakeChunk>& GetSnake() const { return m_Snake; };
 
    private:
-      std::vector<SnakeChunk> m_Snake;
+      std::vector<SnakeChunk> mChunks;
 };

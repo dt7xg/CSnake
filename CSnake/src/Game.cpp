@@ -11,9 +11,7 @@ Game::Game(uint32_t w, uint32_t h, uint32_t fps): mWIDTH(w), mHEIGHT(h), mFPS(fp
             mDefaultBoard[i] = "#" + std::string(mWIDTH - 2, ' ') + "#";
     }
 }
-Game::~Game() {
-    printf("\n\nGAME OVER!!\n");
-}
+Game::~Game() {}
 
 void Game::run() {
     auto board(mDefaultBoard);
@@ -50,14 +48,23 @@ void Game::run() {
 
         // Draw
         printf(UHOME);
-        for (const auto& line : board) printf("%s\n", line.c_str());
+        for (const auto& line : board){
+           for(const auto ch: line){
+              if(ch == '*') printf("%s  %s", UGREEN, URESET);
+              else if(ch == '+') printf("%s  %s", URED, URESET);
+              else if(ch == '#') printf("%s  %s", UBLACK, URESET);
+              else printf("%c%c", ch, ch);
+           }
+           printf("\n");
+        }
 
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1000 / mFPS));
         printf("\n\nScore: %u", (uint32_t)mSnake.length());
     }
 
-    listener.detach();
+    printf("\n\nGame Over\nPress any key to exit...\n");
+    listener.join();
 }
 
 void Game::GenerateBoard(const Position& apple, std::vector<std::string>& board) {

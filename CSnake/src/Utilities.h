@@ -11,9 +11,16 @@
 
 using std::size_t;
 
-constexpr const char* UCLEAR = "\033[2J"; 
+// ANSI Colors
+constexpr const char* UCLEAR = "\033[2J";
 constexpr const char* UHOME = "\033[H";
+constexpr const char* UGREEN = "\e[42m";  // Snake Color
+constexpr const char* UWHITE = "\e[47m";
+constexpr const char* URED = "\e[41m";    // Apple Color
+constexpr const char* UBLACK = "\e[40m";  // Border Color
+constexpr const char* URESET = "\e[0m";
 
+// Keyboard Codes
 #ifndef _WIN32
 constexpr int8_t kARROW = 27;
 constexpr int8_t kARROW_UP = 65;
@@ -28,6 +35,7 @@ constexpr int8_t kARROW_RIGHT = 77;
 constexpr int8_t kARROW_LEFT = 75;
 #endif
 
+// Utils
 struct Position{
    size_t x, y;
 

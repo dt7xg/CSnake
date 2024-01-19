@@ -24,9 +24,4 @@ Game* game = new Game(<width>, <height>, <fps>);
 
 This project may or may not contain bugs. If you encounter issues, please report them, and contributions are welcome.
 
-### To-Do List
-
-- [ ] Make the game more colorful.
-- [ ] Add the ability to specify width, height, and fps through a configuration file or command line arguments.
-
 Feel free to contribute and improve the game!
